@@ -1,0 +1,32 @@
+code-quality-agent-system/
+│
+├── run_code_quality_analysis.py        # Entry point script for CLI based execution
+│
+├── api/
+│   └── code_quality_router.py          # API endpoint for code analysis
+│
+├── workflows/
+│   └── code_quality/
+│       ├── workflow.py                 # Main workflow logic
+│       ├── state.py                    # Typed state management for the workflow
+│       └── prompts/                    # Prompt templates used by agents
+│
+├── agents/
+│   └── quality_analyzer_agent.py       # Agent that performs code quality evaluation
+│
+├── tools/
+│   ├── complexity_calculator.py        # Measures code complexity
+│   └── pattern_detector.py             # Detects structural or logical patterns
+│
+├── services/
+│   └── code_quality_service.py         # Handles DB operations, history, and standards
+│
+├── common/
+│   ├── configs/                        # Model and DB configuration files
+│   ├── utils/
+│   │   ├── llm_client_v2.py            # LLM client utility
+│   │   └── database.py                 # Database connector helper
+│   ├── models/                         # Shared data models and schemas
+│   └── templates/                      # Report templates for output formatting
+│
+└── README.md                           # Project documentation
