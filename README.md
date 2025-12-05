@@ -1,76 +1,51 @@
-Folder Descriptions (Detailed)
-api/
+#Folder Descriptions
+Entry Point
 
-This layer exposes the feature through HTTP endpoints.
-It connects external clients to internal workflows without exposing business logic.
-Handles validation, authentication, and error formatting before passing requests to workflows.
+run_code_quality_analysis.py
+The CLI interface for the system. It reads arguments, validates inputs, sets logging, and initiates the workflow.
 
-workflows/
+API Layer (api/)
 
-Coordinates the entire analysis process.
-Orchestrates agents, tools, and services in a controlled sequence.
-Manages shared state, prompt loading, memory behavior, and multi step execution.
-Ensures the analysis pipeline runs in a predictable and maintainable flow.
+Provides HTTP endpoints for triggering code analysis.
+Handles request validation, authentication, and error responses.
+
+Workflow Layer (workflows/)
+
+Coordinates the steps involved in code analysis.
+Controls state, prompts, agent calls, and pipeline sequencing.
 
 workflows/code_quality/
 
-A dedicated workflow for this feature.
-Includes state definitions, prompt files, and workflow logic specific to code quality analysis.
-Each component in this folder focuses only on this workflow’s responsibility.
+A specialized workflow for code quality analysis.
+Includes logic, state management, and prompt templates.
 
-agents/
+Agent Layer (agents/)
 
-Contains intelligent units that perform specialized tasks.
-Each agent follows a standard interface and can be discovered, configured, or extended easily.
-This design supports adding new analysis agents without changing the workflow architecture.
+Contains intelligent components that execute tasks such as quality analysis or complexity evaluation.
+Each agent is modular and discoverable through the platform’s registry.
 
-tools/
+Tools Layer (tools/)
 
-Pure functions that handle technical tasks such as complexity metrics, pattern detection, or code parsing.
-They contain no business logic and no external dependencies.
-Designed to be easily testable, reusable, and side effect free.
+Pure computational utilities used by agents and workflows.
+These functions stay small, testable, and reusable across the platform.
 
-services/
+Services Layer (services/)
 
-Handles external data operations.
-Responsible for:
+Handles external interactions like fetching historical metrics, saving results, or retrieving standards.
+Uses database clients, caching layers, and query builders provided by the architecture.
 
-fetching previous analysis results
+Common Layer (common/)
 
-saving new metrics
+Contains shared utilities and configuration modules.
 
-retrieving team or project quality standards
-Uses existing database clients and caching layers inherited from the platform.
+configs/
+Environment, model, and database configuration.
 
-common/
+utils/
+Reusable helpers such as LLM clients and database connectors.
 
-A centralized space for shared resources used across all layers.
-Helps avoid duplication and ensures consistent behavior throughout the system.
+models/
+Typed schemas and shared data representations used across layers.
 
-common/configs/
-
-Stores configuration settings for models, database connections, feature flags, and environment values.
-Ensures the system can adapt across environments without modifying the codebase.
-
-common/utils/
-
-General purpose helper utilities used across agents, workflows, and services.
-Examples include:
-
-LLM client wrappers
-
-database connection helpers
-
-text or parsing utilities
-These functions improve developer productivity by centralizing common tasks.
-
-common/models/
-
-Defines data shapes, typed schemas, and shared response models.
-Ensures all layers communicate using reliable, structured data formats.
-Reduces errors from mismatch or inconsistent types.
-
-common/templates/
-
-Contains formatting templates used to generate final reports or summaries.
-Separates presentation from logic, making it easy to adjust output style without code changes
+templates/
+Formatting templates for creating final reports.
